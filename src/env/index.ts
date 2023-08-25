@@ -4,6 +4,8 @@ import { z } from 'zod'
 const schema = z.object({
   NODE_ENV: z.enum(['dev', 'qa', 'production']).default('dev'),
   PORT: z.coerce.number().default(3000),
+  DATABASE_CLIENT: z.enum(['sqlite']),
+  DATABASE_URL: z.string().nonempty(),
 })
 
 const validateSchema = schema.safeParse(process.env)
