@@ -1,8 +1,8 @@
 import { FastifyInstance } from 'fastify'
 import { randomUUID } from 'node:crypto'
 
-import { createUserBodySchema } from '../schema/create-user-schema'
-import { knex } from '../database'
+import { createUserBodySchema } from '@/schema/create-user-schema'
+import { knex } from '@/database'
 
 export async function usersRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
