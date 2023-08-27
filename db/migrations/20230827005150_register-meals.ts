@@ -2,8 +2,8 @@ import { Knex } from 'knex'
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable('meals', (table) => {
-    table.uuid('meal_id').primary()
-    table.foreign('user_id').references('users')
+    table.uuid('id').primary()
+    table.uuid('user_id').references('users.id')
     table.text('name').notNullable()
     table.text('description')
     table.text('meal_date').notNullable()
