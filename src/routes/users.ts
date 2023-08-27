@@ -6,14 +6,13 @@ import { knex } from '@/database'
 import { getUserSchema } from '@/schema/get-user-schema'
 
 export async function usersRoutes(app: FastifyInstance) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  app.get('/', async (request, reply) => {
+  app.get('/', async (request) => {
     const users = await knex('users').select()
 
     return { users }
   })
 
-  app.get('/:id', async (request, reply) => {
+  app.get('/:id', async (request) => {
     const { id } = getUserSchema.parse(request.params)
 
     const user = await knex('users').select().where('id', id).first()
