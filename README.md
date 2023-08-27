@@ -3,7 +3,9 @@ Desafio para praticar requisições http em node
 
 ## RFs (Requisitos Funcionais)
 
-- [ ] Deve ser possível criar um usuário
+- [X] Deve ser possível criar um usuário
+- [x] Deve ser possível listar todos os usuários
+- [ ] Deve ser possível listar um usuário
 - [ ] Deve ser possível registrar uma refeição feita
 - [ ] Deve ser possível editar uma refeição
 - [ ] Deve ser possível apagar uma refeição
