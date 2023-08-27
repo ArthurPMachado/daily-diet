@@ -1,5 +1,5 @@
-# desafio-ignite-02
-Desafio para praticar requisições http em node
+# Daily Diet
+App para registrar, organizar e acompanhar as suas dietas
 
 ## RFs (Requisitos Funcionais)
 
