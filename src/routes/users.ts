@@ -4,16 +4,21 @@ import { randomUUID } from 'node:crypto'
 import { createUserBodySchema } from '@/schema/create-user-schema'
 import { knex } from '@/database'
 import { getUserSchema } from '@/schema/get-user-schema'
+import { verifyAndCreateSessionId } from '@/utils/verifyAndCreateSessionId'
 
 export async function usersRoutes(app: FastifyInstance) {
-  app.get('/', async (request) => {
+  app.get('/', async (request, reply) => {
+    verifyAndCreateSessionId(request, reply)
+
     const users = await knex('users').select()
 
     return { users }
   })
 
-  app.get('/:id', async (request) => {
+  app.get('/:id', async (request, reply) => {
     const { id } = getUserSchema.parse(request.params)
+
+    verifyAndCreateSessionId(request, reply)
 
     const user = await knex('users').select().where('id', id).first()
 
@@ -23,16 +28,7 @@ export async function usersRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
     const { email, password } = createUserBodySchema.parse(request.body)
 
-    let sessionId = request.cookies.sessionId
-
-    if (!sessionId) {
-      sessionId = randomUUID()
-
-      reply.cookie('sessionId', sessionId, {
-        path: '/',
-        maxAge: 1 * 60 * 60 * 24 * 7, // 7 days
-      })
-    }
+    verifyAndCreateSessionId(request, reply)
 
     await knex('users').insert({
       id: randomUUID(),
