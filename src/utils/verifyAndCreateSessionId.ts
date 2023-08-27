@@ -1,12 +1,10 @@
-import { FastifyRequest, FastifyReply } from 'fastify'
+import { FastifyReply } from 'fastify'
 import { randomUUID } from 'node:crypto'
 
 export function verifyAndCreateSessionId(
-  request: FastifyRequest,
+  sessionId: string | undefined,
   reply: FastifyReply,
 ) {
-  let sessionId = request.cookies.sessionId
-
   if (!sessionId) {
     sessionId = randomUUID()
 

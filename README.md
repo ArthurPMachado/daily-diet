@@ -4,8 +4,8 @@ Desafio para praticar requisições http em node
 ## RFs (Requisitos Funcionais)
 
 - [X] Deve ser possível criar um usuário
-- [x] Deve ser possível listar todos os usuários
-- [ ] Deve ser possível listar um usuário
+- [X] Deve ser possível listar todos os usuários
+- [X] Deve ser possível listar um usuário
 - [ ] Deve ser possível registrar uma refeição feita
 - [ ] Deve ser possível editar uma refeição
 - [ ] Deve ser possível apagar uma refeição
@@ -19,7 +19,7 @@ Desafio para praticar requisições http em node
 
 ## RNs (Regras de Negócio)
 
-- [ ] Deve ser possível identificar o usuário entre as requisições
+- [X] Deve ser possível identificar o usuário entre as requisições
 - [ ] Cada refeição deve ser relacionada a um usuário
 - [ ] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
 - [ ] A sequência deve ser incremental a cada nova refeição feita dentro da dieta

@@ -8,9 +8,11 @@ import { verifyAndCreateSessionId } from '@/utils/verifyAndCreateSessionId'
 
 export async function usersRoutes(app: FastifyInstance) {
   app.get('/', async (request, reply) => {
-    verifyAndCreateSessionId(request, reply)
+    const sessionId = request.cookies.sessionId
 
-    const users = await knex('users').select()
+    verifyAndCreateSessionId(sessionId, reply)
+
+    const users = await knex('users').select().where('session_id', sessionId)
 
     return { users }
   })
@@ -18,9 +20,17 @@ export async function usersRoutes(app: FastifyInstance) {
   app.get('/:id', async (request, reply) => {
     const { id } = getUserSchema.parse(request.params)
 
-    verifyAndCreateSessionId(request, reply)
+    const sessionId = request.cookies.sessionId
 
-    const user = await knex('users').select().where('id', id).first()
+    verifyAndCreateSessionId(sessionId, reply)
+
+    const user = await knex('users')
+      .select()
+      .where({
+        id,
+        session_id: sessionId,
+      })
+      .first()
 
     return { user }
   })
@@ -28,15 +38,16 @@ export async function usersRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
     const { email, password } = createUserBodySchema.parse(request.body)
 
-    verifyAndCreateSessionId(request, reply)
+    const sessionId = request.cookies.sessionId
+
+    verifyAndCreateSessionId(sessionId, reply)
 
     await knex('users').insert({
       id: randomUUID(),
       email,
       password,
+      session_id: sessionId,
     })
-
-    console.log(request.body)
 
     return reply.status(201).send()
   })
