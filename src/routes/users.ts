@@ -12,7 +12,7 @@ export async function usersRoutes(app: FastifyInstance) {
 
     verifyAndCreateSessionId(sessionId, reply)
 
-    const users = await knex('users').select().where('session_id', sessionId)
+    const users = await knex('users').select()
 
     return { users }
   })

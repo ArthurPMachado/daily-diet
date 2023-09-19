@@ -24,8 +24,9 @@ App para registrar, organizar e acompanhar as suas dietas
 - [ ] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
 - [ ] A sequência deve ser incremental a cada nova refeição feita dentro da dieta
 - [ ] Deve ser retornado uma porcentagem no total das refeições registradas, sendo esta porcentagem a quantidade de refeições dentro da dieta
+- [ ] O range de caracteres na descrição tem que ser entre 10 e 360 caracteres
 
 ## RNFs (Requisitos não funcionais)
 
 - Os dados serão salvos no SQLite
-- [ ] A lista de refeições conterá 15 refeições por página
+- [ ] A lista de refeições conterá 15 refeições por página por padrao
