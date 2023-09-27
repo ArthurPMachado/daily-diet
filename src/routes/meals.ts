@@ -25,10 +25,17 @@ export async function mealsRoutes(app: FastifyInstance) {
       }
     })
 
+    let percentageOfMealsInDiet = 0
+
+    if (mealsInDiet.length >= 1) {
+      percentageOfMealsInDiet = (mealsInDiet.length / meals.length) * 100
+    }
+
     const responseObject = {
       mealsInDiet: mealsInDiet.length,
       mealsOutDiet: mealsOutDiet.length,
       totalMeals: meals.length,
+      percentageOfMealsInDiet,
     }
 
     return responseObject

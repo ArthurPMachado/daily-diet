@@ -22,7 +22,7 @@ App para registrar, organizar e acompanhar as suas dietas
 - [ ] Deve ser possível identificar o usuário entre as requisições
 - [X] Cada refeição deve ser relacionada a um usuário
 - [ ] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
-- [ ] Deve ser retornado uma porcentagem no total das refeições registradas, sendo esta porcentagem a quantidade de refeições dentro da dieta
+- [X] Deve ser retornado uma porcentagem no total das refeições registradas, sendo esta porcentagem a quantidade de refeições dentro da dieta
 - [X] O range de caracteres na descrição tem que ser entre 10 e 360 caracteres caso tenha um
 
 ## RNFs (Requisitos não funcionais)
