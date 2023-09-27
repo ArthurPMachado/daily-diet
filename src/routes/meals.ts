@@ -6,8 +6,34 @@ import { knex } from '@/database'
 import { verifyAndCreateSessionId } from '@/utils/verifyAndCreateSessionId'
 import { createMealSchema, editMealSchema } from '@/schema/create-meal-schema'
 import { getMealSchema, getMealsSchema } from '@/schema/get-meal-schema'
+import { IMeal } from '@/interface/IMeal'
 
 export async function mealsRoutes(app: FastifyInstance) {
+  app.get('/user/:user_id/metrics', async (request) => {
+    const { user_id } = getMealsSchema.parse(request.params)
+
+    const meals = await knex('meals').select().where({ user_id })
+
+    const mealsInDiet: IMeal[] = []
+    const mealsOutDiet: IMeal[] = []
+
+    meals.forEach((meal) => {
+      if (meal.is_in_diet) {
+        mealsInDiet.push(meal)
+      } else {
+        mealsOutDiet.push(meal)
+      }
+    })
+
+    const responseObject = {
+      mealsInDiet: mealsInDiet.length,
+      mealsOutDiet: mealsOutDiet.length,
+      totalMeals: meals.length,
+    }
+
+    return responseObject
+  })
+
   app.get('/:id', async (request) => {
     const { id } = getMealSchema.parse(request.params)
 
@@ -17,8 +43,6 @@ export async function mealsRoutes(app: FastifyInstance) {
   })
 
   app.get('/user/:user_id', async (request) => {
-    console.log(request)
-
     const { user_id } = getMealsSchema.parse(request.params)
 
     const meals = await knex('meals').select().where({ user_id })
@@ -72,7 +96,7 @@ export async function mealsRoutes(app: FastifyInstance) {
 
     verifyAndCreateSessionId(sessionId, reply)
 
-    await knex('meals').insert({
+    await knex<IMeal>('meals').insert({
       id: randomUUID(),
       ...mealBody,
       session_id: sessionId,

@@ -12,9 +12,9 @@ App para registrar, organizar e acompanhar as suas dietas
 - [X] Deve ser possível listar todas as refeições de um usuário
 - [X] Deve ser possível visualizar uma única refeição
 - [ ] Deve ser possível recuperar as métricas de um usuário
-- [ ] Quantidade total de refeições registradas
-- [ ] Quantidade total de refeições dentro da dieta
-- [ ] Quantidade total de refeições fora da dieta
+- [X] Quantidade total de refeições registradas
+- [X] Quantidade total de refeições dentro da dieta
+- [X] Quantidade total de refeições fora da dieta
 - [ ] Melhor sequência de refeições dentro da dieta
 
 ## RNs (Regras de Negócio)
