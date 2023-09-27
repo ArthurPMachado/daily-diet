@@ -7,7 +7,7 @@ App para registrar, organizar e acompanhar as suas dietas
 - [X] Deve ser possível listar todos os usuários
 - [X] Deve ser possível listar um usuário
 - [X] Deve ser possível registrar uma refeição feita
-- [ ] Deve ser possível editar uma refeição
+- [X] Deve ser possível editar uma refeição
 - [ ] Deve ser possível apagar uma refeição
 - [ ] Deve ser possível listar todas as refeições de um usuário
 - [ ] Deve ser possível visualizar uma única refeição
@@ -19,7 +19,7 @@ App para registrar, organizar e acompanhar as suas dietas
 
 ## RNs (Regras de Negócio)
 
-- [X] Deve ser possível identificar o usuário entre as requisições
+- [ ] Deve ser possível identificar o usuário entre as requisições
 - [X] Cada refeição deve ser relacionada a um usuário
 - [ ] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
 - [ ] Deve ser retornado uma porcentagem no total das refeições registradas, sendo esta porcentagem a quantidade de refeições dentro da dieta

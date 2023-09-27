@@ -3,7 +3,8 @@ import { randomUUID } from 'node:crypto'
 
 import { knex } from '@/database'
 import { verifyAndCreateSessionId } from '@/utils/verifyAndCreateSessionId'
-import { createMealSchema } from '@/schema/create-meal-schema'
+import { createMealSchema, editMealSchema } from '@/schema/create-meal-schema'
+import { getMealSchema } from '@/schema/get-meal-schema'
 
 export async function mealsRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
@@ -11,11 +12,14 @@ export async function mealsRoutes(app: FastifyInstance) {
 
     const sessionId = request.cookies.sessionId
 
-    const user = await knex('users').select().where({
-      id: mealBody.user_id,
-    })
+    const user = await knex('users')
+      .select()
+      .where({
+        id: mealBody.user_id,
+      })
+      .first()
 
-    if (user.length < 1) {
+    if (!user) {
       reply.status(400)
       throw new Error('User does not exists for the meal to be associated')
     }
@@ -29,5 +33,20 @@ export async function mealsRoutes(app: FastifyInstance) {
     })
 
     return reply.status(201).send()
+  })
+
+  app.put('/:id', async (request, reply) => {
+    const { id } = getMealSchema.parse(request.params)
+    const editMealBody = editMealSchema.parse(request.body)
+
+    const isRecordUpdated = await knex('meals')
+      .where({ id })
+      .update(editMealBody)
+
+    if (isRecordUpdated) {
+      reply.status(204).send()
+    } else {
+      reply.status(404).send({ message: 'Meal was not found' })
+    }
   })
 }
