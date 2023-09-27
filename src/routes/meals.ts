@@ -8,6 +8,14 @@ import { createMealSchema, editMealSchema } from '@/schema/create-meal-schema'
 import { getMealSchema, getMealsSchema } from '@/schema/get-meal-schema'
 
 export async function mealsRoutes(app: FastifyInstance) {
+  app.get('/:id', async (request) => {
+    const { id } = getMealSchema.parse(request.params)
+
+    const meal = await knex('meals').select().where({ id })
+
+    return { meal }
+  })
+
   app.get('/user/:user_id', async (request) => {
     console.log(request)
 
@@ -15,7 +23,7 @@ export async function mealsRoutes(app: FastifyInstance) {
 
     const meals = await knex('meals').select().where({ user_id })
 
-    return [meals]
+    return { meals }
   })
 
   app.delete('/:id', async (request, reply) => {
