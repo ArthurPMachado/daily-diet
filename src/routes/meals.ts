@@ -7,6 +7,7 @@ import { verifyAndCreateSessionId } from '@/utils/verifyAndCreateSessionId'
 import { createMealSchema, editMealSchema } from '@/schema/create-meal-schema'
 import { getMealSchema, getMealsSchema } from '@/schema/get-meal-schema'
 import { IMeal } from '@/interface/IMeal'
+import { findBestSequence } from '@/utils/findBestSequence'
 
 export async function mealsRoutes(app: FastifyInstance) {
   app.get('/user/:user_id/metrics', async (request) => {
@@ -14,16 +15,8 @@ export async function mealsRoutes(app: FastifyInstance) {
 
     const meals = await knex('meals').select().where({ user_id })
 
-    const mealsInDiet: IMeal[] = []
-    const mealsOutDiet: IMeal[] = []
-
-    meals.forEach((meal) => {
-      if (meal.is_in_diet) {
-        mealsInDiet.push(meal)
-      } else {
-        mealsOutDiet.push(meal)
-      }
-    })
+    const { mealsInDiet, mealsOutDiet, highestSequence } =
+      findBestSequence(meals)
 
     let percentageOfMealsInDiet = 0
 
@@ -35,7 +28,8 @@ export async function mealsRoutes(app: FastifyInstance) {
       mealsInDiet: mealsInDiet.length,
       mealsOutDiet: mealsOutDiet.length,
       totalMeals: meals.length,
-      percentageOfMealsInDiet,
+      percentageOfMealsInDiet: Number(percentageOfMealsInDiet.toFixed(2)),
+      highestSequenceOfMealsInDiet: highestSequence.length,
     }
 
     return responseObject
